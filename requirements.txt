@@ -1,0 +1,5 @@
+context-passport[signing,langgraph] >= 1.0.0a2
+langgraph >= 0.2.0
+langchain-anthropic >= 0.3.0
+# Alternative provider — uncomment if using OpenAI instead
+# langchain-openai >= 0.3.0

@@ -1,0 +1,26 @@
+# Local runtime artifacts
+.keys/
+passports/
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Editor / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Secrets (just in case)
+.env
+.env.local

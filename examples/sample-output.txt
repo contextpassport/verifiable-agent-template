@@ -1,0 +1,43 @@
+$ python -m src.agent "What is the EU AI Act Article 12 logging requirement?"
+[plan]      -> broke task into 3 sub-questions
+[research]  -> searched and analyzed sources
+[write]     -> drafted 232-word answer
+[verify]    -> integrity chain ok (3 passports, all signatures valid)
+
+======================================================================
+Article 12 of the EU AI Act requires providers of high-risk AI
+systems to ensure their systems technically allow for the automatic
+recording of events ("logs") over the lifetime of the system. The
+records must be sufficient to identify risk situations under Article
+79(1), facilitate post-market monitoring under Article 72, and
+support operational monitoring under Article 26(5).
+
+The Commission interprets "traceability" as a structural property:
+the record itself must be tamper-evident and independently verifiable,
+not merely a claim by the provider that records exist. A standard
+database audit log inside the system being audited typically does not
+satisfy this — it is a self-report, not an audit trail.
+
+In practice, providers are implementing this with hash-chained,
+signed records anchored to external transparency services. The
+record format must be machine-readable, retain attribution to the
+agent that produced it, and remain verifiable by an auditor or
+regulator without depending on the provider's continued operation.
+
+[sources: EU AI Act 2024/1689 Art. 12; Art. 79; Commission interpretive
+guidance on traceability]
+======================================================================
+
+Wrote 3 passports to ./passports/
+Trace id: trc_a3f1b2c8d4e6
+Run `python -m src.verify ./passports/` to verify the chain.
+
+$ python -m src.verify ./passports/
+Loaded 3 passports from passports
+
+Trace trc_a3f1b2c8d4e6:
+  3 passports
+  Integrity chain: OK
+  Signatures:      3/3 valid
+
+All checks passed.
