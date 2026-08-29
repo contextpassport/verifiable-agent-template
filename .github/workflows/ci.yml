@@ -1,0 +1,41 @@
+name: CI
+
+# This repository is a template: people copy it and build on it. Until now
+# nothing checked that it still worked, so the way a break would have been
+# found is somebody cloning it and hitting the error themselves. That is the
+# worst possible place to discover it, because the person affected is a new
+# user at the exact moment they are deciding whether this project is worth
+# their time.
+#
+# The template also sits downstream of a moving dependency. context-passport
+# is versioned independently and the standard has already gone through one
+# major version. A weekly run catches a break introduced by a release here
+# rather than by a change in this repository.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '31 6 * * 1'   # Mondays, 06:31 UTC
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    name: Template produces a chain that verifies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - run: pip install -r requirements.txt
+
+      # No ANTHROPIC_API_KEY is set, and none is needed. The smoke test drives
+      # the recorder through the LangChain callback lifecycle directly, which
+      # covers every line of the Context Passport wiring without calling a
+      # model. It asserts both halves of the claim the README makes: a chain
+      # the template produced verifies, and one with an edited payload does not.
+      - run: python tests/smoke.py
